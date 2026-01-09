@@ -1,0 +1,3 @@
+[submodule "food-tracker-backend"]
+	path = food-tracker-backend
+	url = git@github.com:dsaini64/food-tracker-backend.git

@@ -19,7 +19,6 @@ func runCompilationTests() {
         timestamp: Date(),
         imageData: nil,
         mealType: .snack,
-        healthScore: 9
     )
     print("FoodItem created successfully: \(foodItem.name)")
 

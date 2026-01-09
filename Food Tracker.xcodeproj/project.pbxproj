@@ -6,11 +6,63 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		130E224C2EDE62F2005A21CB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 130E224B2EDE62F2005A21CB /* WidgetKit.framework */; };
+		130E224E2EDE62F2005A21CB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 130E224D2EDE62F2005A21CB /* SwiftUI.framework */; };
+		130E225F2EDE62F3005A21CB /* FoodSnapWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 130E22492EDE62F2005A21CB /* FoodSnapWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		130E225D2EDE62F3005A21CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13E5CEB92E9DA211004ACAFA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 130E22482EDE62F2005A21CB;
+			remoteInfo = FoodTrackerWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		130E22602EDE62F3005A21CB /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				130E225F2EDE62F3005A21CB /* FoodSnapWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		13E5CEC12E9DA211004ACAFA /* HelloFam Food.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HelloFam Food.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		130E22492EDE62F2005A21CB /* FoodSnapWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FoodSnapWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		130E224B2EDE62F2005A21CB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		130E224D2EDE62F2005A21CB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		130E22AA2EE0FAD3005A21CB /* FoodTrackerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodTrackerWidgetExtension.entitlements; sourceTree = "<group>"; };
+		13E5CEC12E9DA211004ACAFA /* FoodSnap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodSnap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		130E22632EDE62F3005A21CB /* Exceptions for "FoodTrackerWidget" folder in "FoodSnapWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 130E22482EDE62F2005A21CB /* FoodSnapWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		130E224F2EDE62F2005A21CB /* FoodTrackerWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				130E22632EDE62F3005A21CB /* Exceptions for "FoodTrackerWidget" folder in "FoodSnapWidgetExtension" target */,
+			);
+			path = FoodTrackerWidget;
+			sourceTree = "<group>";
+		};
 		13E5CEC32E9DA211004ACAFA /* foodtrackerv2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = foodtrackerv2;
@@ -19,6 +71,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		130E22462EDE62F2005A21CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				130E224E2EDE62F2005A21CB /* SwiftUI.framework in Frameworks */,
+				130E224C2EDE62F2005A21CB /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13E5CEBE2E9DA211004ACAFA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -29,10 +90,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		130E224A2EDE62F2005A21CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				130E224B2EDE62F2005A21CB /* WidgetKit.framework */,
+				130E224D2EDE62F2005A21CB /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		13E5CEB82E9DA211004ACAFA = {
 			isa = PBXGroup;
 			children = (
+				130E22AA2EE0FAD3005A21CB /* FoodTrackerWidgetExtension.entitlements */,
 				13E5CEC32E9DA211004ACAFA /* foodtrackerv2 */,
+				130E224F2EDE62F2005A21CB /* FoodTrackerWidget */,
+				130E224A2EDE62F2005A21CB /* Frameworks */,
 				13E5CEC22E9DA211004ACAFA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +113,8 @@
 		13E5CEC22E9DA211004ACAFA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13E5CEC12E9DA211004ACAFA /* HelloFam Food.app */,
+				13E5CEC12E9DA211004ACAFA /* FoodSnap.app */,
+				130E22492EDE62F2005A21CB /* FoodSnapWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,26 +122,50 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13E5CEC02E9DA211004ACAFA /* HelloFam Food */ = {
+		130E22482EDE62F2005A21CB /* FoodSnapWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13E5CECC2E9DA212004ACAFA /* Build configuration list for PBXNativeTarget "HelloFam Food" */;
+			buildConfigurationList = 130E22642EDE62F3005A21CB /* Build configuration list for PBXNativeTarget "FoodSnapWidgetExtension" */;
 			buildPhases = (
-				13E5CEBD2E9DA211004ACAFA /* Sources */,
-				13E5CEBE2E9DA211004ACAFA /* Frameworks */,
-				13E5CEBF2E9DA211004ACAFA /* Resources */,
+				130E22452EDE62F2005A21CB /* Sources */,
+				130E22462EDE62F2005A21CB /* Frameworks */,
+				130E22472EDE62F2005A21CB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				130E224F2EDE62F2005A21CB /* FoodTrackerWidget */,
+			);
+			name = FoodSnapWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FoodTrackerWidgetExtension;
+			productReference = 130E22492EDE62F2005A21CB /* FoodSnapWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		13E5CEC02E9DA211004ACAFA /* FoodSnap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13E5CECC2E9DA212004ACAFA /* Build configuration list for PBXNativeTarget "FoodSnap" */;
+			buildPhases = (
+				13E5CEBD2E9DA211004ACAFA /* Sources */,
+				13E5CEBE2E9DA211004ACAFA /* Frameworks */,
+				13E5CEBF2E9DA211004ACAFA /* Resources */,
+				130E22602EDE62F3005A21CB /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				130E225E2EDE62F3005A21CB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
 				13E5CEC32E9DA211004ACAFA /* foodtrackerv2 */,
 			);
-			name = "HelloFam Food";
+			name = FoodSnap;
 			packageProductDependencies = (
 			);
 			productName = foodtrackerv2;
-			productReference = 13E5CEC12E9DA211004ACAFA /* HelloFam Food.app */;
+			productReference = 13E5CEC12E9DA211004ACAFA /* FoodSnap.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -77,15 +175,18 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2600;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					130E22482EDE62F2005A21CB = {
+						CreatedOnToolsVersion = 26.1;
+					};
 					13E5CEC02E9DA211004ACAFA = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
 			};
-			buildConfigurationList = 13E5CEBC2E9DA211004ACAFA /* Build configuration list for PBXProject "HelloFam Food" */;
+			buildConfigurationList = 13E5CEBC2E9DA211004ACAFA /* Build configuration list for PBXProject "Food Tracker" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,12 +200,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13E5CEC02E9DA211004ACAFA /* HelloFam Food */,
+				13E5CEC02E9DA211004ACAFA /* FoodSnap */,
+				130E22482EDE62F2005A21CB /* FoodSnapWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		130E22472EDE62F2005A21CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13E5CEBF2E9DA211004ACAFA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +224,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		130E22452EDE62F2005A21CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13E5CEBD2E9DA211004ACAFA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +240,83 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		130E225E2EDE62F3005A21CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 130E22482EDE62F2005A21CB /* FoodSnapWidgetExtension */;
+			targetProxy = 130E225D2EDE62F3005A21CB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		130E22612EDE62F3005A21CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
+				CODE_SIGN_ENTITLEMENTS = FoodTrackerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HD527SV54F;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FoodTrackerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FoodTrackerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = divakar.saini.com.foodtrackerv2.FoodTrackerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		130E22622EDE62F3005A21CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
+				CODE_SIGN_ENTITLEMENTS = FoodTrackerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HD527SV54F;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FoodTrackerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FoodTrackerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = divakar.saini.com.foodtrackerv2.FoodTrackerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		13E5CECA2E9DA212004ACAFA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -251,13 +443,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Food Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QG84UY3P5B;
+				DEVELOPMENT_TEAM = HD527SV54F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = FoodSnap;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to take photos of your food for tracking.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app needs access to read your nutrition data from Apple Health.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app needs access to save your nutrition data to Apple Health.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs photo library access to select food images for tracking.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -268,11 +464,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = divakar.saini.com.foodtrackerv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -287,13 +487,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Food Tracker.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QG84UY3P5B;
+				DEVELOPMENT_TEAM = HD527SV54F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = FoodSnap;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to take photos of your food for tracking.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app needs access to read your nutrition data from Apple Health.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app needs access to save your nutrition data to Apple Health.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs photo library access to select food images for tracking.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -304,11 +508,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = divakar.saini.com.foodtrackerv2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -321,7 +529,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13E5CEBC2E9DA211004ACAFA /* Build configuration list for PBXProject "HelloFam Food" */ = {
+		130E22642EDE62F3005A21CB /* Build configuration list for PBXNativeTarget "FoodSnapWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				130E22612EDE62F3005A21CB /* Debug */,
+				130E22622EDE62F3005A21CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13E5CEBC2E9DA211004ACAFA /* Build configuration list for PBXProject "Food Tracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13E5CECA2E9DA212004ACAFA /* Debug */,
@@ -330,7 +547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13E5CECC2E9DA212004ACAFA /* Build configuration list for PBXNativeTarget "HelloFam Food" */ = {
+		13E5CECC2E9DA212004ACAFA /* Build configuration list for PBXNativeTarget "FoodSnap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13E5CECD2E9DA212004ACAFA /* Debug */,

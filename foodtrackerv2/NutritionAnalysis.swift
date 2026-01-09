@@ -6,58 +6,60 @@ import Combine
 class NutritionAnalysis: ObservableObject {
     @Published var dailyLog: DailyFoodLog
     @Published var goals: NutritionGoals
+    private var cancellables = Set<AnyCancellable>()
     
     init(dailyLog: DailyFoodLog, goals: NutritionGoals = .defaultGoals) {
         self.dailyLog = dailyLog
         self.goals = goals
+        
+        // Forward changes from dailyLog to trigger NutritionAnalysis updates
+        dailyLog.objectWillChange
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Progress Calculations
     var caloriesProgress: Double {
-        min(dailyLog.totalCalories / goals.dailyCalories, 1.0)
+        guard goals.dailyCalories > 0 else { return 0 }
+        return min(dailyLog.totalCalories / goals.dailyCalories, 1.0)
     }
     
     var proteinProgress: Double {
-        min(dailyLog.totalProtein / goals.dailyProtein, 1.0)
+        guard goals.dailyProtein > 0 else { return 0 }
+        // If protein is 0 or essentially 0 (less than 0.01g), return exactly 0 to avoid any progress bar
+        guard dailyLog.totalProtein >= 0.01 else { return 0 }
+        // Round to 2 decimal places to avoid floating point precision issues
+        let roundedProtein = round(dailyLog.totalProtein * 100) / 100
+        guard roundedProtein >= 0.01 else { return 0 }
+        let calculatedProgress = min(roundedProtein / goals.dailyProtein, 1.0)
+        // Ensure progress is exactly 0 if it's less than 0.0001 (essentially zero)
+        return calculatedProgress < 0.0001 ? 0 : calculatedProgress
     }
     
     var carbsProgress: Double {
-        min(dailyLog.totalCarbs / goals.dailyCarbs, 1.0)
+        guard goals.dailyCarbs > 0 else { return 0 }
+        // If carbs is 0 or essentially 0 (less than 0.01g), return exactly 0 to avoid any progress bar
+        guard dailyLog.totalCarbs >= 0.01 else { return 0 }
+        // Round to 2 decimal places to avoid floating point precision issues
+        let roundedCarbs = round(dailyLog.totalCarbs * 100) / 100
+        guard roundedCarbs >= 0.01 else { return 0 }
+        let calculatedProgress = min(roundedCarbs / goals.dailyCarbs, 1.0)
+        // Ensure progress is exactly 0 if it's less than 0.0001 (essentially zero)
+        return calculatedProgress < 0.0001 ? 0 : calculatedProgress
     }
     
     var fatProgress: Double {
-        min(dailyLog.totalFat / goals.dailyFat, 1.0)
-    }
-    
-    // MARK: - Health Insights
-    var overallHealthScore: Double {
-        dailyLog.averageHealthScore
-    }
-    
-    var healthScoreColor: Color {
-        switch overallHealthScore {
-        case 8...10:
-            return .green
-        case 6..<8:
-            return .yellow
-        case 4..<6:
-            return .orange
-        default:
-            return .red
-        }
-    }
-    
-    var healthScoreDescription: String {
-        switch overallHealthScore {
-        case 8...10:
-            return "Excellent! You're making great food choices."
-        case 6..<8:
-            return "Good job! A few tweaks could make it even better."
-        case 4..<6:
-            return "Room for improvement. Focus on healthier options."
-        default:
-            return "Let's work on making better food choices."
-        }
+        guard goals.dailyFat > 0 else { return 0 }
+        // If fat is 0 or essentially 0 (less than 0.01g), return exactly 0 to avoid any progress bar
+        guard dailyLog.totalFat >= 0.01 else { return 0 }
+        // Round to 2 decimal places to avoid floating point precision issues
+        let roundedFat = round(dailyLog.totalFat * 100) / 100
+        guard roundedFat >= 0.01 else { return 0 }
+        let calculatedProgress = min(roundedFat / goals.dailyFat, 1.0)
+        // Ensure progress is exactly 0 if it's less than 0.0001 (essentially zero)
+        return calculatedProgress < 0.0001 ? 0 : calculatedProgress
     }
     
     // MARK: - Improvement Suggestions
@@ -74,13 +76,6 @@ class NutritionAnalysis: ObservableObject {
         // Protein suggestions
         if dailyLog.totalProtein < goals.dailyProtein * 0.7 {
             suggestions.append("Add more lean proteins like chicken, fish, or legumes")
-        }
-        
-        // Health score suggestions
-        if overallHealthScore < 6 {
-            suggestions.append("Include more fruits and vegetables in your meals")
-            suggestions.append("Choose whole grains over refined carbohydrates")
-            suggestions.append("Limit processed foods and added sugars")
         }
         
         // Meal balance suggestions
@@ -115,7 +110,6 @@ class NutritionAnalysis: ObservableObject {
             totalProtein: dailyLog.totalProtein,
             totalCarbs: dailyLog.totalCarbs,
             totalFat: dailyLog.totalFat,
-            healthScore: overallHealthScore,
             mealBreakdown: mealBreakdown,
             suggestions: suggestions,
             goalsMet: calculateGoalsMet()
@@ -126,13 +120,11 @@ class NutritionAnalysis: ObservableObject {
         return FoodItem.MealType.allCases.map { mealType in
             let items = dailyLog.getFoodItems(for: mealType)
             let calories = items.reduce(0) { $0 + $1.calories }
-            let healthScore = items.isEmpty ? 0 : Double(items.reduce(0) { $0 + $1.healthScore }) / Double(items.count)
             
             return MealBreakdown(
                 mealType: mealType,
                 calories: calories,
-                itemCount: items.count,
-                averageHealthScore: healthScore
+                itemCount: items.count
             )
         }
     }
@@ -140,8 +132,7 @@ class NutritionAnalysis: ObservableObject {
     private func calculateGoalsMet() -> [String: Bool] {
         return [
             "Calories": dailyLog.totalCalories >= goals.dailyCalories * 0.8 && dailyLog.totalCalories <= goals.dailyCalories * 1.2,
-            "Protein": dailyLog.totalProtein >= goals.dailyProtein * 0.7,
-            "Health Score": overallHealthScore >= 6
+            "Protein": dailyLog.totalProtein >= goals.dailyProtein * 0.7
         ]
     }
 }
@@ -152,7 +143,6 @@ struct DailySummary {
     let totalProtein: Double
     let totalCarbs: Double
     let totalFat: Double
-    let healthScore: Double
     let mealBreakdown: [MealBreakdown]
     let suggestions: [String]
     let goalsMet: [String: Bool]
@@ -162,5 +152,4 @@ struct MealBreakdown {
     let mealType: FoodItem.MealType
     let calories: Double
     let itemCount: Int
-    let averageHealthScore: Double
 }

@@ -19,6 +19,8 @@ backend/node_modules/
 backend/.env
 backend/uploads/
 backend/logs/
+railway-backend/.env
+railway-backend/node_modules/
 
 # Archives
 build/

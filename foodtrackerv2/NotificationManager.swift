@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import SwiftUI
+import Combine
 
 // MARK: - Notification Manager
 class NotificationManager: ObservableObject {
@@ -29,7 +30,7 @@ class NotificationManager: ObservableObject {
     
     // MARK: - Permission Management
     func requestNotificationPermission() {
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
             DispatchQueue.main.async {
                 self.isAuthorized = granted
                 if granted {
@@ -51,7 +52,7 @@ class NotificationManager: ObservableObject {
     }
     
     // MARK: - Meal Reminder Scheduling
-    func scheduleMealReminders() {
+    func scheduleMealReminders(breakfastTime: (Int, Int) = (8, 0), lunchTime: (Int, Int) = (12, 30), dinnerTime: (Int, Int) = (18, 30)) {
         guard isAuthorized && notificationsEnabled else { return }
         
         // Clear existing notifications
@@ -62,8 +63,8 @@ class NotificationManager: ObservableObject {
             identifier: "breakfast_reminder",
             title: "🌅 Breakfast Time!",
             body: "Don't forget to snap a photo of your breakfast before you eat!",
-            hour: defaultMealTimes["breakfast"]!.hour,
-            minute: defaultMealTimes["breakfast"]!.minute
+            hour: breakfastTime.0,
+            minute: breakfastTime.1
         )
         
         // Schedule lunch reminder
@@ -71,8 +72,8 @@ class NotificationManager: ObservableObject {
             identifier: "lunch_reminder",
             title: "☀️ Lunch Time!",
             body: "Time for lunch! Take a photo to track your midday meal.",
-            hour: defaultMealTimes["lunch"]!.hour,
-            minute: defaultMealTimes["lunch"]!.minute
+            hour: lunchTime.0,
+            minute: lunchTime.1
         )
         
         // Schedule dinner reminder
@@ -80,11 +81,11 @@ class NotificationManager: ObservableObject {
             identifier: "dinner_reminder",
             title: "🌙 Dinner Time!",
             body: "Don't forget to capture your dinner before eating!",
-            hour: defaultMealTimes["dinner"]!.hour,
-            minute: defaultMealTimes["dinner"]!.minute
+            hour: dinnerTime.0,
+            minute: dinnerTime.1
         )
         
-        print("📅 Scheduled meal reminders for breakfast (8:00 AM), lunch (12:30 PM), and dinner (6:30 PM)")
+        print("📅 Scheduled meal reminders for breakfast (\(breakfastTime.0):\(String(format: "%02d", breakfastTime.1))), lunch (\(lunchTime.0):\(String(format: "%02d", lunchTime.1))), and dinner (\(dinnerTime.0):\(String(format: "%02d", dinnerTime.1)))")
     }
     
     private func scheduleMealReminder(identifier: String, title: String, body: String, hour: Int, minute: Int) {
@@ -92,7 +93,7 @@ class NotificationManager: ObservableObject {
         content.title = title
         content.body = body
         content.sound = .default
-        content.badge = 1
+        content.badge = 0
         
         var dateComponents = DateComponents()
         dateComponents.hour = hour
@@ -129,6 +130,7 @@ class NotificationManager: ObservableObject {
     func updateMealTimes(breakfast: (Int, Int), lunch: (Int, Int), dinner: (Int, Int)) {
         // Update default meal times
         // This would be called when user customizes their meal times
-        scheduleMealReminders()
+        scheduleMealReminders(breakfastTime: breakfast, lunchTime: lunch, dinnerTime: dinner)
     }
+    
 }

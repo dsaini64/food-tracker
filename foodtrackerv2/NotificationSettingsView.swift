@@ -22,6 +22,12 @@ struct NotificationSettingsView: View {
                         .onChange(of: userProfile.notificationsEnabled) { enabled in
                             if enabled {
                                 notificationManager.requestNotificationPermission()
+                                // Schedule notifications with current times
+                                notificationManager.scheduleMealReminders(
+                                    breakfastTime: userProfile.breakfastTime,
+                                    lunchTime: userProfile.lunchTime,
+                                    dinnerTime: userProfile.dinnerTime
+                                )
                             } else {
                                 notificationManager.cancelAllNotifications()
                             }
@@ -74,15 +80,21 @@ struct NotificationSettingsView: View {
                 // Permission Status Section
                 Section {
                     HStack {
-                        Image(systemName: notificationManager.isAuthorized ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .foregroundColor(notificationManager.isAuthorized ? .green : .orange)
+                        let isFullyEnabled = notificationManager.isAuthorized && userProfile.notificationsEnabled
+                        Image(systemName: isFullyEnabled ? "checkmark.circle.fill" : 
+                              (!notificationManager.isAuthorized ? "exclamationmark.triangle.fill" : "pause.circle.fill"))
+                            .foregroundColor(isFullyEnabled ? .green : 
+                                           (!notificationManager.isAuthorized ? .orange : .gray))
                         
                         VStack(alignment: .leading) {
-                            Text(notificationManager.isAuthorized ? "Notifications Enabled" : "Permission Required")
+                            Text(isFullyEnabled ? "Notifications Active" : 
+                                 (!notificationManager.isAuthorized ? "Permission Required" : "Notifications Paused"))
                                 .font(.headline)
-                            Text(notificationManager.isAuthorized ? 
+                            Text(isFullyEnabled ? 
                                  "You'll receive meal reminders at your scheduled times." : 
-                                 "Tap below to enable notifications for meal reminders.")
+                                 (!notificationManager.isAuthorized ? 
+                                  "Tap below to enable notifications for meal reminders." :
+                                  "Turn on the toggle above to receive meal reminders."))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -110,6 +122,33 @@ struct NotificationSettingsView: View {
                 userProfile: userProfile,
                 notificationManager: notificationManager
             )
+        }
+        .onChange(of: "\(userProfile.breakfastTime.0):\(userProfile.breakfastTime.1)") { _ in
+            if userProfile.notificationsEnabled && notificationManager.isAuthorized {
+                notificationManager.scheduleMealReminders(
+                    breakfastTime: userProfile.breakfastTime,
+                    lunchTime: userProfile.lunchTime,
+                    dinnerTime: userProfile.dinnerTime
+                )
+            }
+        }
+        .onChange(of: "\(userProfile.lunchTime.0):\(userProfile.lunchTime.1)") { _ in
+            if userProfile.notificationsEnabled && notificationManager.isAuthorized {
+                notificationManager.scheduleMealReminders(
+                    breakfastTime: userProfile.breakfastTime,
+                    lunchTime: userProfile.lunchTime,
+                    dinnerTime: userProfile.dinnerTime
+                )
+            }
+        }
+        .onChange(of: "\(userProfile.dinnerTime.0):\(userProfile.dinnerTime.1)") { _ in
+            if userProfile.notificationsEnabled && notificationManager.isAuthorized {
+                notificationManager.scheduleMealReminders(
+                    breakfastTime: userProfile.breakfastTime,
+                    lunchTime: userProfile.lunchTime,
+                    dinnerTime: userProfile.dinnerTime
+                )
+            }
         }
     }
 }
@@ -317,7 +356,11 @@ struct TimePickerView: View {
         }
         
         // Reschedule notifications with new times
-        notificationManager.scheduleMealReminders()
+        notificationManager.scheduleMealReminders(
+            breakfastTime: userProfile.breakfastTime,
+            lunchTime: userProfile.lunchTime,
+            dinnerTime: userProfile.dinnerTime
+        )
     }
 }
 
